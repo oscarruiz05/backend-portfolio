@@ -19,8 +19,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: true,
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        migrations: [__dirname + '/../migrations/*.js'],
+        synchronize: true, // deshabilitar synchronize en producción
+        logging: process.env.NODE_ENV !== 'production',
       }),
       inject: [ConfigService],
     }),
